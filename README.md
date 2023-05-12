@@ -12,7 +12,7 @@
 
 ## 代码仓库链接
 
-https://github.com/shafuk/lesson
+https://github.com/shafuk/blockchain-in-js-workshop-2021
 
 
 
@@ -21,7 +21,7 @@ https://github.com/shafuk/lesson
 
 ### 代码 commint 地址
 
-
+https://github.com/shafuk/blockchain-in-js-workshop-2021/commit/074df85139402588bcbcc15c0254f829322b0bc1
 
 
 ### 代码截图
@@ -35,29 +35,6 @@ https://github.com/shafuk/lesson
 ### 主观与讨论题内容
 
 ---
-
-
-
-## 第一课代码
-
-
-### 代码 commint 地址
-
-https://github.com/CUITBlockchain/blockchain-in-js-workshop-2021/commit/25f3a0d83a9fff2b4514c5503f470df939d0c2af
-
-
-### 代码截图
-
-> 将截图上传至网盘，放入链接即可
-
-![](链接)
-
-
-### 主观与讨论题内容
-
-
----
-
 
 
 ## 第二课代码
