@@ -1,6 +1,6 @@
 import Block, { DIFFICULTY } from '../models/Block.js'
 import Blockchain from '../models/Blockchain.js'
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from '../crypto-js/sha256.js'
 import { calcNonce } from '../utils.js'
 
 const main = () => {

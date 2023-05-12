@@ -1,6 +1,6 @@
 import Block from '../models/Block.js'
 import Blockchain from '../models/Blockchain.js'
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from '../crypto-js/sha256.js'
 
 const main = () => {
   // 初始化区块链
@@ -20,7 +20,8 @@ const main = () => {
     sha256(new Date().getTime().toString()).toString(),
   )
 
-  blockchain.blocks[newBlock.hash] = newBlock
+
+  blockchain.blocks.set(newBlock.hash.toString(),newBlock)
 
   let nextBlock = new Block(
     blockchain,
@@ -37,8 +38,8 @@ const main = () => {
   )
 
   // 添加两个区块高度为 2  的的竞争区块
-  blockchain.blocks[nextBlock.hash] = nextBlock
-  blockchain.blocks[nextCompetitionBlock.hash] = nextCompetitionBlock
+  blockchain.blocks.set((nextBlock.hash).toString(),nextBlock)
+  blockchain.blocks.set((nextCompetitionBlock.hash).toString(),nextCompetitionBlock)
 
   let longestChain = blockchain.longestChain()
 
@@ -51,7 +52,7 @@ const main = () => {
     sha256(new Date().getTime().toString()).toString(),
   )
 
-  blockchain.blocks[thirdBlock.hash] = thirdBlock
+  blockchain.blocks.set((thirdBlock.hash).toString(),thirdBlock)
 
   longestChain = blockchain.longestChain()
 
