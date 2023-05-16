@@ -60,7 +60,7 @@ const main = () => {
   console.assert(longestChain.length == 3, 'Block height should be 2')
   console.assert(
     longestChain[2].hash == thirdBlock.hash,
-    `Height block hash should be ${thirdBlock.hash}`,
+    'Height block hash should be ${thirdBlock.hash}',
   )
 }
 

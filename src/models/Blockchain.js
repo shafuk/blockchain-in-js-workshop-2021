@@ -27,19 +27,19 @@ class Blockchain {
           if (value_list[j].previousHash==value_list[i].hash) {
             temp.push([value_list[i],value_list[j]])
           }
-      }
-    }
-    for (let i = 0; i < temp.length; i++) {
-      for (let j = 0; j < temp.length; j++) {
-        if (temp[i][1]==temp[j][0]  ) {
-          let temp1 = temp[i]
-          let temp2 =temp[j]
-          temp1.pop()
-          return temp1.concat(temp2)
         }
       }
-    }
-    return temp[1]
+      for (let i = 0; i < temp.length; i++) {
+        for (let j = 0; j < temp.length; j++) {
+          if (temp[i][1]==temp[j][0]  ) {
+            let temp1 = temp[i]
+            let temp2 =temp[j]
+            temp1.pop()
+            return temp1.concat(temp2)
+          }
+        }
+      }
+      return temp[1]
   }
 }
 
