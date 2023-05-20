@@ -1,6 +1,6 @@
 import Block, { DIFFICULTY } from '../models/Block.js'
 import Blockchain from '../models/Blockchain.js'
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from '../crypto-js/sha256.js'
 import { calcNonce } from '../utils.js'
 
 const main = () => {
@@ -58,10 +58,13 @@ const main = () => {
   console.assert(longestChain.length == 2, 'Error: Block height should be 2')
 
   let thirdBlock = new Block(
-    blockchain,
-    nextBlock.hash,
-    3,
-    sha256(new Date().getTime().toString()).toString(),
+      blockchain,
+      nextBlock.hash,
+      3,
+      sha256(new Date().getTime().toString()).toString(),
+      miner,
+      37.5
+
   )
 
   thirdBlock = calcNonce(thirdBlock)
@@ -74,7 +77,7 @@ const main = () => {
   console.assert(longestChain.length == 3, 'Block height should be 2')
   console.assert(
     longestChain[2].hash == thirdBlock.hash,
-    `Height block hash should be ${thirdBlock.hash}`,
+    'Height block hash should be ${thirdBlock.hash}',
   )
 
   // UTXO check

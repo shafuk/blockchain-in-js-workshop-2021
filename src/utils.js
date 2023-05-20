@@ -1,9 +1,9 @@
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from './crypto-js/sha256.js'
 
 export const validateHash = () => {}
 
 export const calcNonce = (block) => {
-  console.log(`calc nonce of block ${block.height} `)
+  console.log(`calc nonce of block ${block.index} `)
   const start = new Date().getTime()
   let calcTimes = 0
   while (!block.isValid()) {

@@ -1,6 +1,6 @@
 import Block, { DIFFICULTY } from '../models/Block.js'
 import Blockchain from '../models/Blockchain.js'
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from '../crypto-js/sha256.js'
 import { calcNonce } from '../utils.js'
 
 const main = () => {
@@ -31,27 +31,27 @@ const main = () => {
 
   console.assert(newBlock.isValid() == true, 'Error: Very low probability')
 
-  blockchain.blocks[newBlock.hash] = newBlock
+  blockchain.blocks.set(newBlock.hash.toString(),newBlock)
 
   let nextBlock = new Block(
     blockchain,
     newBlock.hash,
     2,
-    sha256(new Date().getTime().toString()).toString(),
+    sha256((new Date().getTime()+1).toString()).toString(),
   )
 
   let nextCompetitionBlock = new Block(
     blockchain,
     newBlock.hash,
     2,
-    sha256((new Date().getTime() + 1).toString()).toString(),
+    sha256((new Date().getTime() + 2).toString()).toString(),
   )
 
   nextBlock = calcNonce(nextBlock)
   nextCompetitionBlock = calcNonce(nextCompetitionBlock)
   // 添加两个区块高度为 2  的的竞争区块
-  blockchain.blocks[nextBlock.hash] = nextBlock
-  blockchain.blocks[nextCompetitionBlock.hash] = nextCompetitionBlock
+  blockchain.blocks.set((nextBlock.hash).toString(),nextBlock)
+  blockchain.blocks.set((nextCompetitionBlock.hash).toString(),nextCompetitionBlock)
 
   let longestChain = blockchain.longestChain()
 
@@ -61,13 +61,13 @@ const main = () => {
     blockchain,
     nextCompetitionBlock.hash,
     3,
-    sha256(new Date().getTime().toString()).toString(),
+    sha256((new Date().getTime()+5).toString()).toString(),
   )
 
   
   thirdBlock = calcNonce(thirdBlock)
 
-  blockchain.blocks[thirdBlock.hash] = thirdBlock
+  blockchain.blocks.set((thirdBlock.hash).toString(),thirdBlock)
 
   longestChain = blockchain.longestChain()
 
@@ -75,7 +75,7 @@ const main = () => {
   console.assert(longestChain.length == 3, 'Block height should be 2')
   console.assert(
     longestChain[2].hash == thirdBlock.hash,
-    `Height block hash should be ${thirdBlock.hash}`,
+    'Height block hash should be ${thirdBlock.hash}',
   )
 }
 
