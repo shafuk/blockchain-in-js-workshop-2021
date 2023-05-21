@@ -1,6 +1,6 @@
 import sha256 from '../crypto-js/sha256.js'
-import UTXOPool from "./UTXOPool.js";
 import UTXO from "./UTXO.js";
+import UTXOPool from "./UTXOPool.js";
 
 export const DIFFICULTY = 2
 
@@ -13,9 +13,7 @@ class Block {
     this.index=index
     this.hash=hash
     this.nonce=0
-    this.coinbaseBeneficiary=miner
-    this.amount=amount
-    this.utxoPool=new UTXOPool(new UTXO(this.coinbaseBeneficiary,this.amount))
+    this.utxoPool = new UTXOPool(new UTXO(miner,amount))
   }
 
   isValid(){

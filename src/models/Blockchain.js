@@ -1,5 +1,6 @@
 import UTXOPool from './UTXOPool.js'
 import Block from "./Block.js";
+import UTXO from "./UTXO.js";
 
 
 class Blockchain {
@@ -72,7 +73,6 @@ class Blockchain {
 
     // 添加 UTXO 快照与更新的相关逻辑
     this.blocks.push(block)
-    var temp_utxo=block.utxoPool.clone()
   }
 }
 

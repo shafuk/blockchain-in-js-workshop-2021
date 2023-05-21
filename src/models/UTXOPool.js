@@ -1,8 +1,9 @@
 import UTXO from './UTXO.js'
 
 class UTXOPool {
-  constructor(utxos = {}) {
-    this.utxos = utxos
+  constructor(utxos= {}) {
+    this.utxos=utxos
+
   }
 
   // 添加交易函数

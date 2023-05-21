@@ -1,6 +1,7 @@
 export default class UTXO {
-  constructor(miner, amount) {
+  constructor(miner,amount) {
     this.miner = miner
     this.amount = amount
   }
+
 }

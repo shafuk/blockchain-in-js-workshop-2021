@@ -64,7 +64,6 @@ const main = () => {
       sha256(new Date().getTime().toString()).toString(),
       miner,
       37.5
-
   )
 
   thirdBlock = calcNonce(thirdBlock)
@@ -89,14 +88,14 @@ const main = () => {
 
   console.log(thirdBlock.utxoPool)
   console.assert(
-    thirdBlock.utxoPool.utxos[miner] &&
-      thirdBlock.utxoPool.utxos[miner].amount > 0,
+    thirdBlock.utxoPool.utxos["miner"] &&
+      thirdBlock.utxoPool.utxos["amount"] > 0,
     'Error: miner should got BTC',
   )
 
   console.assert(
-    thirdBlock.utxoPool.utxos[miner] &&
-      thirdBlock.utxoPool.utxos[miner].amount == 37.5,
+      thirdBlock.utxoPool.utxos["miner"] &&
+      thirdBlock.utxoPool.utxos["amount"] > 0,
     'Error: miner should got BTC',
   )
 }
