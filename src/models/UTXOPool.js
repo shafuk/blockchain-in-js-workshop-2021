@@ -10,13 +10,20 @@ class UTXOPool {
   /**
    * 将交易的信息更新至 UTXOPool 中
    */
-  addUTXO(utxo) {
-    this.utxos[utxo.miner]=utxo.amount
+  addUTXO(publickey,amount) {
+    if (this.utxos[publickey]){
+      this.utxos[publickey].amount += amount
+
+    }else {
+      const utxo = new UTXO(publickey,amount)
+      this.utxos[publickey] = utxo
+    }
+
   }
 
   // 将当前 UXTO 的副本克隆
-  clone(utxo) {
-    return new UTXO(this.utxos.miner,this.utxos.amount)
+  clone() {
+    return new UTXOPool(this.clone(this.utxos))
   }
 }
 

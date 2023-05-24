@@ -1,5 +1,3 @@
-import sha256 from '../crypto-js/sha256.js'
-import UTXO from "./UTXO.js";
 import UTXOPool from "./UTXOPool.js";
 
 export const DIFFICULTY = 2
@@ -7,13 +5,14 @@ export const DIFFICULTY = 2
 class Block {
   // 1. 完成构造函数及其参数
 
-  constructor(chain,previousHash,index,hash,miner,amount) {
+  constructor(chain,previousHash,index,hash,coinbaseBeneficiary) {
     this.chain=chain
     this.previousHash=previousHash
     this.index=index
     this.hash=hash
     this.nonce=0
-    this.utxoPool = new UTXOPool(new UTXO(miner,amount))
+    this,coinbaseBeneficiary=coinbaseBeneficiary
+    this.utxoPool = new UTXOPool()
   }
 
   isValid(){
