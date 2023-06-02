@@ -1,6 +1,6 @@
 import UTXOPool from './UTXOPool.js'
 
-Blockchain
+//Blockchain
 class Blockchain {
   // 1. 完成构造函数及其参数
   /* 构造函数需要包含
@@ -47,9 +47,14 @@ class Blockchain {
   // 判断当前区块链是否包含
   containsBlock(block) {
     // 添加判断方法
+    for (let i = 0; i < this.blocks.length; i++) {
+      if (this.blocks[i] == block) {
+        return true
+      }
+    }
+
     return false
   }
-
   // 获得区块高度最高的区块
   maxHeightBlock() {
     // return Block
@@ -62,8 +67,20 @@ class Blockchain {
   _addBlock(block) {
     if (!block.isValid()) return
     if (this.containsBlock(block)) return
-
     // 添加 UTXO 快照与更新的相关逻辑
+    var parent = null
+    for (let [key,value] of this.blocks) {
+      if (block.previousHash==value.hash){
+        parent = value
+      }
+    }
+    if(parent === undefined && parent.index+1 !==block.index)
+      return
+    const newUtxoPool = parent.utxoPool.clone();
+    newUtxoPool.addUTXO(block.coinbaseBeneficiary, 12.5)
+    block.utxoPool = newUtxoPool;
+    this.blocks[block.hash] = block;
+    rerender()
   }
 }
 
