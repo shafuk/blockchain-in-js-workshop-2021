@@ -4,29 +4,35 @@ class UTXOPool {
   constructor(utxos = {}) {
     this.utxos=utxos
   }
-
-  addUTXO(publicKey, amount) {
-    if (this.utxos[publicKey]){
-      this.utxos[publicKey].amount+=amount
+  addUTXO(PublicKey,amount) {
+    if(this.utxos[PublicKey]){
+      this.utxos[PublicKey].amount+=amount
     }else{
-      const utxo = new UTXO(publicKey,amount)
-      this.utxos[publicKey]=utxo
+      const utxo =new UTXO(PublicKey,amount)
+      this.utxos[PublicKey]=utxo
     }
   }
 
+  // 将当前 UXTO 的副本克隆
   clone() {
     return new UTXOPool(clone(this.utxos))
   }
-
   // 处理交易函数
-  handleTransaction() {}
+  handleTransaction(transaction) {
+    if (!this.isValidTransaction(transaction.inputPublicKey, transaction.amount))
+      return
+    const inputUTXO = this.utxos[transaction.inputPublicKey];
+    inputUTXO.amount -= transaction.amount
+    if (inputUTXO.amount === 0)
+      delete this.utxos[transaction.inputPublicKey]
+    this.addUTXO(transaction.outputPublicKey, transaction.amount)
+  }
 
-  // 验证交易合法性
-  /**
-   * 验证余额
-   * 返回 bool 
-   */
-  isValidTransaction() {}
+  isValidTransaction(inputPublicKey, amount) {
+    const utxo = this.utxos[inputPublicKey]
+    return utxo !== undefined && utxo.amount >= amount && amount > 0
+  }
+
 }
 
 export default UTXOPool
