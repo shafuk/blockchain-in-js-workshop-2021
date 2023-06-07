@@ -1,4 +1,4 @@
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from './crypto-js/sha256.js'
 
 export const validateHash = (hash) => {
   if (hash.length == 0 || !hash) return false
