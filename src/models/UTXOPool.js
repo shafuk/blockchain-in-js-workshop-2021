@@ -18,19 +18,27 @@ class UTXOPool {
     return new UTXOPool(clone(this.utxos))
   }
   // 处理交易函数
-  handleTransaction(transaction) {
+  handleTransaction(transaction,feerReceiver) {
     if (!this.isValidTransaction(transaction.inputPublicKey, transaction.amount,transaction.fee))
       return
     const inputUTXO = this.utxos[transaction.inputPublicKey];
-    inputUTXO.amount -= (transaction.amount+transaction.fee)
+    inputUTXO.amount -= transaction.amount
+    inputUTXO.amount -= transaction.fee
     if (inputUTXO.amount === 0)
       delete this.utxos[transaction.inputPublicKey]
     this.addUTXO(transaction.outputPublicKey, transaction.amount)
+    this.addUTXO(feerReceiver,transaction.fee)
   }
 
   isValidTransaction(inputPublicKey, amount, fee) {
-    const utxo = this.utxos[inputPublicKey]
-    return utxo !== undefined && utxo.amount-utxo.fee >= amount && amount > 0
+    const inpututxo = this.utxos[inputPublicKey]
+    if(!inpututxo){
+      return false
+    }
+    if (inpututxo.amount < amount+fee){
+      return false
+    }
+    return false
   }
 
 }

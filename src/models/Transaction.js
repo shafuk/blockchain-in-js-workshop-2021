@@ -15,7 +15,7 @@ class Transaction {
   }
 
   _calculateHash() {
-    return sha256(this.inputPublicKey + this.outputPublicKey + (this.amount-this.fee)).toString()
+    return sha256(this.inputPublicKey + this.outputPublicKey + this.amount+ this.fee).toString()
   }
 
 }
