@@ -3,7 +3,7 @@ import Blockchain from '../models/Blockchain.js'
 import Transaction from '../models/Transaction.js'
 import { sign, verifySignature } from '../crypto.js'
 
-import sha256 from 'crypto-js/sha256.js'
+import sha256 from '../crypto-js/sha256.js'
 import { calcNonce, validateHash } from '../utils.js'
 
 const { log, assert } = console

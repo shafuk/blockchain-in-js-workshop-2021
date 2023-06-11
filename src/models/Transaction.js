@@ -1,25 +1,30 @@
-import sha256 from 'crypto-js/sha256.js'
-
+import sha256 from '../crypto-js/sha256.js'
+import {sign} from "../crypto.js"
+import {verifySignature} from "../crypto.js"
 class Transaction {
-  constructor() {
-
+  constructor(inputPublicKey, outputPublicKey, amount) {
+    this.inputPublicKey = inputPublicKey
+    this.outputPublicKey = outputPublicKey
+    this.amount = amount
+    this._setHash()
+    this.signature=null
   }
-
-  // 更新交易 hash
   _setHash() {
-
+    this.hash = this._calculateHash()
   }
 
-  // 计算交易 hash 的摘要函数
   _calculateHash() {
-
+    return sha256(this.inputPublicKey + this.outputPublicKey + this.amount).toString()
   }
-
-  // 校验交易签名 返回 bool 类型的值
-  hasValidSignature() {
-
+  sign(){
+    this.signature=sign(this.amount,this.inputPublicKey)
   }
-
+  hasValidSignature(){
+    if (!this.signature || this.signature.length === 0) {
+      throw new Error("Transaction signature is missing");
+    }
+    return verifySignature(this.amount,this.signature,this.inputPublicKey)
+  }
 }
 
 export default Transaction
